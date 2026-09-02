@@ -2,10 +2,6 @@
 
 Aplicación móvil desarrollada con **React Native y Expo** como parte del TP-10 - Repaso post vacaciones.
 
-## 👥 Integrantes
-
-* Alexia Wainstok
-* Milena
 
 ## 🌐 API utilizada
 

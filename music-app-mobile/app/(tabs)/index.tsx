@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { Text, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Header from "../../components/Header";
@@ -72,7 +73,7 @@ export default function Home() {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Header />
 
       <SearchBar
@@ -101,7 +102,7 @@ export default function Home() {
           onQuitar={quitarDeFavoritos}
         />
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 

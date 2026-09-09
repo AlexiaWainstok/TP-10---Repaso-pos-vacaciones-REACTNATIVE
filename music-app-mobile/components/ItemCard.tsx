@@ -1,4 +1,6 @@
-import { View, Text, Image, Pressable, StyleSheet } from "react-native";
+import React from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Colors } from '@/constants/theme';
 
 type Props = {
   cancion: any;
@@ -13,75 +15,112 @@ export default function ItemCard({
   onAgregar,
   onQuitar,
 }: Props) {
-  const imagen = cancion.artworkUrl100
-    ? cancion.artworkUrl100.replace("100x100bb", "300x300bb")
-    : undefined;
+  // Ajuste de resolución de la imagen de iTunes
+  const imagen = cancion?.artworkUrl100
+    ? cancion.artworkUrl100.replace('100x100bb', '300x300bb')
+    : cancion?.image;
 
   return (
     <View style={styles.card}>
       {imagen && (
-        <Image
-          source={{ uri: imagen }}
-          style={styles.image}
-        />
+        <View style={styles.imageWrapper}>
+          <Image source={{ uri: imagen }} style={styles.image} resizeMode="cover" />
+        </View>
       )}
 
-      <Text style={styles.title}>
-        {cancion.trackName}
-      </Text>
+      <View style={styles.info}>
+        <Text style={styles.title} numberOfLines={1}>
+          {cancion.trackName || cancion.title}
+        </Text>
+        <Text style={styles.subtext} numberOfLines={1}>
+          Nombre del artista: {cancion.artistName || cancion.artist}
+        </Text>
+        <Text style={styles.subtext} numberOfLines={1}>
+           Nombre del álbum: {cancion.collectionName || cancion.album}
+        </Text>
+        
+        {(cancion.primaryGenreName || cancion.genre) && (
+          <View style={styles.genreBadge}>
+            <Text style={styles.genreText}>
+                {cancion.primaryGenreName || cancion.genre}
+            </Text>
+          </View>
+        )}
+      </View>
 
-      <Text>🎤 Artista: {cancion.artistName}</Text>
-
-      <Text>💿 Álbum: {cancion.collectionName}</Text>
-
-      <Text>🏷️ Género: {cancion.primaryGenreName}</Text>
-
-      <Pressable
-        style={styles.button}
+      <TouchableOpacity
+        style={[styles.btnFav, esFavorito && styles.btnQuitar]}
         onPress={esFavorito ? onQuitar : onAgregar}
       >
-        <Text style={styles.buttonText}>
-          {esFavorito
-            ? "🗑️ Quitar de Favoritos"
-            : "❤️ Agregar a Favoritos"}
+        <Text style={[styles.btnText, esFavorito && styles.btnQuitarText]}>
+          {esFavorito ? '❌ Quitar de Favoritos' : '❤️ Agregar a Favoritos'}
         </Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    margin: 10,
-    padding: 15,
-    borderRadius: 10,
-    backgroundColor: "#f2f2f2",
+    backgroundColor: Colors.surface,
+    borderRadius: 12,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: Colors.cardBorder,
+    marginBottom: 16,
   },
-
+  imageWrapper: {
+    width: '100%',
+    aspectRatio: 1,
+    borderRadius: 8,
+    overflow: 'hidden',
+    marginBottom: 12,
+  },
   image: {
-    width: 200,
-    height: 200,
-    alignSelf: "center",
-    borderRadius: 10,
-    marginBottom: 10,
+    width: '100%',
+    height: '100%',
   },
-
+  info: {
+    gap: 4,
+    marginBottom: 12,
+  },
   title: {
     fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 5,
+    fontWeight: '700',
+    color: Colors.text,
   },
-
-  button: {
-    marginTop: 12,
-    padding: 10,
+  subtext: {
+    fontSize: 14,
+    color: Colors.textSecondary,
+  },
+  genreBadge: {
+    alignSelf: 'flex-start',
+    backgroundColor: Colors.cardBorder,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
     borderRadius: 8,
-    backgroundColor: "#0059ff",
-    alignItems: "center",
+    marginTop: 4,
   },
-
-  buttonText: {
-    color: "white",
-    fontWeight: "bold",
+  genreText: {
+    color: Colors.primary,
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  btnFav: {
+    backgroundColor: Colors.primary,
+    paddingVertical: 12,
+    borderRadius: 25,
+    alignItems: 'center',
+  },
+  btnText: {
+    color: '#000000',
+    fontWeight: '700',
+    fontSize: 14,
+  },
+  btnQuitar: {
+    backgroundColor: Colors.danger,
+  },
+  btnQuitarText: {
+    color: Colors.text,
   },
 });

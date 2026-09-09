@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { Text, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import ItemList from "../../components/ItemList";
@@ -33,7 +34,7 @@ export default function Favoritos() {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.title}>
         ⭐ Mis Canciones Favoritas
       </Text>
@@ -50,7 +51,7 @@ export default function Favoritos() {
           onQuitar={quitarDeFavoritos}
         />
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 

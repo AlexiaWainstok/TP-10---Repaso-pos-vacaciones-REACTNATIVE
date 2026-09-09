@@ -4,27 +4,49 @@ const tintColorLight = '#0a7ea4';
 const tintColorDark = '#fff';
 
 export const Colors = {
-  background: '#121517',
-  surface: '#181818',
-  cardBorder: '#282828',
-  primary: '#1db954',
-  text: '#ffffff',
-  textSecondary: '#b3b3b3',
-  danger: '#e91429',
-  inputBg: '#1e2328',
-  inputBorder: '#2a3137',
-  searchBtn: '#318a58',
-};
+  light: {
+    background: '#121517',
+    surface: '#181818',
+    cardBorder: '#282828',
+    primary: '#1db954',
+    text: '#ffffff',
+    textSecondary: '#b3b3b3',
+    danger: '#e91429',
+    inputBg: '#1e2328',
+    inputBorder: '#2a3137',
+    searchBtn: '#318a58',
+    tint: '#1db954',
+    icon: '#9aa1a8',
+    tabIconDefault: '#9aa1a8',
+    tabIconSelected: '#1db954',
+  },
+  dark: {
+    background: '#121517',
+    surface: '#181818',
+    cardBorder: '#282828',
+    primary: '#1db954',
+    text: '#ffffff',
+    textSecondary: '#b3b3b3',
+    danger: '#e91429',
+    inputBg: '#1e2328',
+    inputBorder: '#2a3137',
+    searchBtn: '#318a58',
+    tint: '#1db954',
+    icon: '#9aa1a8',
+    tabIconDefault: '#9aa1a8',
+    tabIconSelected: '#1db954',
+  },
 
+};
 export const Fonts = Platform.select({
   ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
+   
     sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
+    
     serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
+ 
     rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
+  
     mono: 'ui-monospace',
   },
   default: {

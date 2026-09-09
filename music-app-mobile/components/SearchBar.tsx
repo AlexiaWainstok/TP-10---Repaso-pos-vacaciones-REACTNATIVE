@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { Colors } from '@/constants/theme';
+import { useThemeColor } from '@/hooks/use-theme-color';
 
 type Props = {
   busqueda: string;
@@ -9,18 +9,23 @@ type Props = {
 };
 
 export default function SearchBar({ busqueda, setBusqueda, onBuscar }: Props) {
+  const inputBg = useThemeColor({}, 'inputBg');
+  const inputBorder = useThemeColor({}, 'inputBorder');
+  const textColor = useThemeColor({}, 'text');
+  const searchBtnBg = useThemeColor({}, 'searchBtn');
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: inputBg, borderColor: inputBorder }]}>
       <TextInput
-        style={styles.input}
+        style={[styles.input, { color: textColor }]}
         placeholder="Buscar artista, canción o álbum..."
         placeholderTextColor="#6a727a"
         value={busqueda}
         onChangeText={setBusqueda}
       />
 
-      <TouchableOpacity style={styles.button} onPress={onBuscar}>
-        <Text style={styles.buttonText}>Buscar</Text>
+      <TouchableOpacity style={[styles.button, { backgroundColor: searchBtnBg }]} onPress={onBuscar}>
+        <Text style={[styles.buttonText, { color: textColor }]}>Buscar</Text>
       </TouchableOpacity>
     </View>
   );
@@ -30,29 +35,24 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.inputBg,
     borderRadius: 20,
     paddingLeft: 14,
     paddingRight: 6,
     paddingVertical: 4,
     borderWidth: 1,
-    borderColor: Colors.inputBorder,
     marginVertical: 16,
   },
   input: {
     flex: 1,
-    color: Colors.text,
     fontSize: 14,
     paddingVertical: 6,
   },
   button: {
-    backgroundColor: Colors.searchBtn,
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 16,
   },
   buttonText: {
-    color: Colors.text,
     fontWeight: '600',
     fontSize: 13,
   },
